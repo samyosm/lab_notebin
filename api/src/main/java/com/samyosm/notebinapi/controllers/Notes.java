@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/note")
 public class Notes {
@@ -25,7 +27,12 @@ public class Notes {
         return storedNote.getId();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/all")
+    public List<NoteItem> addNote() {
+        return noteRepository.findAll();
+    }
+
+    @GetMapping("/get/{id}")
     public NoteItem getNote(@PathVariable String id) {
         return noteRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note with id " + id + " does not exist");

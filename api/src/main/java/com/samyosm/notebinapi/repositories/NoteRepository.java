@@ -10,5 +10,7 @@ public interface NoteRepository extends MongoRepository<NoteItem, String> {
     @Query("{_id:'?0'}")
     NoteItem findItemById(String id);
 
+    List<NoteItem> findAllBy();
+
     public long count();
 }
