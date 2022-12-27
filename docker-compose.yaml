@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  mongo_db:
+    image: 'mongo'
+    restart: always
+    networks:
+      - asgard
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017:27017'
+  api:
+    networks:
+      - asgard
+    depends_on:
+      - mongo_db
+    build: './api'
+    restart: always
+    ports:
+      - '8080:8080'
+networks:
+  asgard:
+    ipam:
+      driver: default
