@@ -2,3 +2,7 @@ spring:
   data:
     mongodb:
       database: notebin
+
+server:
+  error:
+    include-message: always

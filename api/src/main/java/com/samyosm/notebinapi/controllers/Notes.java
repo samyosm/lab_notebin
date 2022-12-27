@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@Controller
-@RequestMapping("/notes")
+@RestController
+@RequestMapping("/note")
 public class Notes {
 
     private final NoteRepository noteRepository;
@@ -19,13 +19,13 @@ public class Notes {
         this.noteRepository = noteRepository;
     }
 
-    @PostMapping
-    public NoteItem addNote(@RequestBody NoteItem note) {
-        noteRepository.insert(note);
-        return note;
+    @PostMapping("/add")
+    public String addNote(@RequestBody NoteItem note) {
+        var storedNote = noteRepository.save(note);
+        return storedNote.getId();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public NoteItem getNote(@PathVariable String id) {
         return noteRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note with id " + id + " does not exist");
