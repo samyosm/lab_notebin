@@ -1,7 +1,9 @@
 spring:
   data:
     mongodb:
+      host: mongo_db
       database: notebin
+      port: 27017
 
 server:
   error:
