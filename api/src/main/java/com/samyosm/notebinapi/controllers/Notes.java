@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/note")
 public class Notes {
 
@@ -20,18 +21,18 @@ public class Notes {
     public Notes(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
-
+    @CrossOrigin
     @PostMapping("/add")
     public String addNote(@RequestBody NoteItem note) {
         var storedNote = noteRepository.save(note);
         return storedNote.getId();
     }
-
+    @CrossOrigin
     @GetMapping("/all")
     public List<NoteItem> addNote() {
         return noteRepository.findAll();
     }
-
+    @CrossOrigin
     @GetMapping("/get/{id}")
     public NoteItem getNote(@PathVariable String id) {
         return noteRepository.findById(id).orElseThrow(() -> {

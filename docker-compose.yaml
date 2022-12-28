@@ -2,7 +2,6 @@ version: '3.8'
 services:
   mongo_db:
     image: 'mongo'
-    restart: always
     networks:
       - asgard
     volumes:
@@ -16,9 +15,17 @@ services:
     depends_on:
       - mongo_db
     build: './api'
-    restart: always
     ports:
       - '8080:8080'
+  app:
+    build: './front'
+    networks:
+      - asgard
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - '3000:3000'
 networks:
   asgard:
     ipam:

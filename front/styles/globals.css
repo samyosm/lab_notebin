@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html, body, body>div {
-    @apply w-full h-full;
+    @apply w-full min-h-full h-screen;
 }
